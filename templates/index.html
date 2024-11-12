@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Downloader</title>
+    <link rel="stylesheet" href="./static/style.css" type="text/css">
+    <link rel="icon" href="./static/image/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="body">
+    <div class="container">
+        <h1>YouTube Video Downloader</h1>
+        <input type="text" id="video-url" placeholder="Enter YouTube Video URL" required>
+        <button id="get-info">Get Video Info</button>
+
+        <!-- Loading Spinner for Video Info -->
+        <div class="spinner" id="loading-spinner"></div>
+        <div class="loading-text" id="loading-text">Loading video information...</div>
+
+        <div id="video-info" style="display:none;">
+            <h2>Available Formats:</h2>
+            <select id="format-select"></select>
+            <button id="download-video">Download Video</button>
+
+            <!-- Downloading Spinner for Video Download -->
+            <div class="spinner" id="downloading-spinner"></div>
+            <div class="loading-text" id="downloading-text">Downloading video...</div>
+        </div>
+    </div>
+ </div>
+ <div id="dowgide">
+    <h1><p>how to download <span id="youtubered">youtube video</span> </p></h>
+        <div class="main-div">
+            <!-- Inner divs -->
+            <div class="inner-div">
+                <h1>1</h1>
+                <p>enter the video link</p>
+            </div>
+            <div class="inner-div"><img src="./static/image/cross.svg" alt="Image uy"></div>
+            <div class="inner-div"><h1>2</h1>
+                <p>Choose your preferred format and quality</p>
+            </div>
+            <div class="inner-div"><img src="./static/image/cross.svg" alt="Imagein"></div>
+            <div class="inner-div"><h1>3</h1>
+                <p>Download the video</p></div>
+        </div>
+        
+ </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 YTRahul. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="https://youtube.com/@beesmartcoder?si=WsFzQviXfvuih57u" target="_blank" title="youtube"><img  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAa9JREFUSEvt1jtoFUEUxvFfUBCCooWNpBGDdtrYiYWNEiLRMmUQUUFQBLVRfGBeRVJEbCzEImWqCKIopAi2goiKiGhlIRZ2aqGie2AX1sFw517u5qbIaZYdznx/zjdnHn16FH094loHr5rza8rqjRjBAXwrLdiO3djUwpLveI34RvzBSzzEr/rctOJ9eICdXfb8I47hTaWbgp/hYJehldwTDP0PPIBPDUEr2R34HD/1ig8X6/q0YfAhLKfgE7ifAY4e2IW9GblpyigWUvBFzGaIXcckTmIK0fG5cQr3UvDNov1vZCgEeLzM24ZbOFuMbciYex53UnBUG1W3ijq4yt2D2/WuXUHkcuVqvbkmcLUVFdcQufWIw2UOwy3mXykOoelOra6Dt5RWn8u0+kLpzD/b6RJmMiuOpjpdrnU7zTVW7Ij5tOIzuJsBXsRgh9spluJxCj6OEG0y4i54lYKjM981SUU/fqTg+H+O/Q3BH+FopZ3eTgFdwtYuwz+Ud/zblcAxvhlH8LV8DMSZHLdKO/EF74tz4SdelA+B33WBNfX0aaeyjnPXK+7YunYn9szqv6QmPx+V5GUqAAAAAElFTkSuQmCC"/></a>
+                <a href="https://m.facebook.com/profile.php?id=100035450980163" target="_blank" title="Facebook"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAn1JREFUSEvFll1oz1EYxz+LRsu83WxygaSIXLmQJuXCXNokFyhyRUSyxM3ukJfalEutlLU0K5m4cSNlYrUScuO1vCTZGmmLOF+dv87/OOd3zv/nYk/tYr//c57P85znOc/z1DFFUjdFXGoFTwPWAouBBdbpd8BrYAj4mRtILngZcBxoA+ZGjH8BrgGngBcpB1LgBuA0sB9QtDnyAzgHdAKTsQNF4EXATWBlDi2g8xDYAigV/0gMvAK4B8wvCa0cE3SdrYEqUyFwsy0URZySj8Bd4CXwHZgObAWWOwefWviYaywE7gO2p4jGuPT2AaOe7kFzUxe8bxeBA0VgefosA6ooVkeezyFT+V2eDRWZnuD7ync/4svArgywrnPA05Nh/bUDitqXMyYdx0LgeuATMDsDrJt57uj129wWHdXbXhoCbwTuZEClIufGra4cnsg899dh96p3Az2ZBhqBr1Z3luNE6rje9XUpueAOQHnIkbLgw0C3Dz4KnI1QXwFLcjwCrgLbIrpinPfBqmZVdUhqAT8GVkXs7AB6fbDG3f3IgaqKLIhcg+SbmVAzIjprgGEfrHan0aZi8UXd6U9urJx0Jo+q+oT9rtwfiUBlQ73/lw/W/znvUXpliusKsLPilN+5dBUaZykpA1ben8TA+n7LTKfNCXKtYN1kVaXHxqKGwLwCeC3gD4Dme9UUiy0CG8xSd9usPTMj8Fyw2qpa8SPfTtHq0wIMAnMC8BywBs4ms/6MhJxPLXsLbSfS+uJKCnzDrDt7zHj8HEtXClx5cuuBvabBtAJNkef01qbnEvAg9SxywL4N9ew3zvahbiVngtvk/0Sccr7U72UiLgXyD/0GGLB0H1VMfAgAAAAASUVORK5CYII="/></a>
+                <a href="https://github.com/RAHULNAIK4117" target="_blank" title="github"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAtZJREFUSEvlltmrjlEUxn+HUlyIzGQMZQiZyR8gynjhQsYc51whxYWiRClEUjJkigspQynl2sUxZqaUeSpDUmR27Odrv6d9lr2/732/m3Nh1Vvf+37rWc/ea6/1rF1DC1lNC/FSlLgVMB4YAPSAEv4N8BS4BPzOu5G8xH2BdcBcoFMi+EfgFLAFeFxpAZWI27hdrAfWAvqdx34BW102NrrF/kgByhErlefcMyYPW8TnKjALeB3Dp4j7AQ1A9ypJM5hIJwPPbJwYcUfgMjDIOz/yRaSCymMi+Q4M9s4PgEnApxAcIz4CLAqcpjrgBWA0sA0YBiiYHp2n3ocAWuBqQCmeAlwMYhxwKV9ejniCb4vQp79vlzy7zXx0RGqzzBqB4cD97IPd8XFgvmEYBdwqwgoMBe4ZzEFgWYy4NfAe6BAA3vqVvitI3N4fRc8Ap0LrFSMe688n5FjhBGN3QdLMXWe6z2CVCdVGM8lUz50xjqrkJ1USa7evDHaG14ZmxMq/qi80gcMiKbKGdsAXA2jKYFhctcB+4zgSuF2ELfDtDTw32DXAdpvqOV7kQ9+lwOEqiWcCZw12MXDUEksEmvrMA867gpteJfFp14azDXYccM0S613tZMfeQuBYQXJhSjsL7LNv1dLMtgKy1xVTHfDTi4ZaTHYI2BCpUrseDReNQxFbkxQvyT5a4lBxVgI3fIspC3+A68AO4ISJKj3f7PU8NfFGuIvEnRSxvu8EVnkHTZVuTgJPBheBmIR2AaRyKdsVxCz5xFbX1g8KrTArLgVeAHwD9iSiSyxCiczcbvqZ/DXEpdLSB7jid1vv+1sTppxJ4XTGoUmfJwIvLLDc1UdBtGO1mSryISBR6Jpgl1jo/8zuusVPi5GmUh3GleypSjXgdbX9AHROEEtaNYfVEbowbPJHE3WvdMvMQNqJUj7QTZd5CWL17UtfA3Y4/APJS1zheIv//f8R/wWu0n4fd8acIQAAAABJRU5ErkJggg=="/></a>
+                <a href="https://www.linkedin.com/in/rahul-naik-656660309/" target="_blank" title="LinkedIn"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAWxJREFUSEvt109LFlEUx/HPAy6CQAQ1ktCFLRRC2rkL8w2UL0NUqNa6EnKZBIWrdr0AQdwJCq5aRyAogoFo5qalC6m5cAeuo8QzPPPMCHpWM3c453vP75z7Z1oaslZDXLcKPILRipU4xM80ZjHjIRxTuRJ/8QQnObwIfontirPNw01jpwx4H8N40OGESoFfYQMPsZmpMdUBvG3wLzxOQLNYqwN8iX78ibAP2fO7OsCBsZXV9wueYQF9dYE74FxzbbvGwXMmkfpNfP8aVQjfJxEacBW7OMMLLGdLJyzN1EqBBzOJz6P3J8zjPZbiWCjBAS4KkB58x3gyXik4jzuB02xivxPQHD53E7yO1wir4Dl+RFgow7dugXuTHgiMRaxEWDhsjroFfhprnMf/iLfxZaAgfakaP0qcb2quMewlWYWdLdQ2WGjM0OW53YOvrMDieXz3pG5sr64N3NhlL2TYyPW2Smn/G+tW/UnUkvU/UCiAH3HBfpQAAAAASUVORK5CYII="/></a>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        $(document).ready(function() {
+            $('#get-info').click(function() {
+                const url = $('#video-url').val();
+                
+                // Show loading animation
+                $('#loading-spinner').show();
+                $('#loading-text').show();
+                
+                $.ajax({
+                    url: '/get_video_info',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({url: url}),
+                    success: function(data) {
+                        $('#loading-spinner').hide();
+                        $('#loading-text').hide();
+                        $('#error-message').text('');
+                        $('#format-select').empty();
+                        $('#format-select').append('<option disabled selected>Select a format</option>');
+                        data.formats.forEach(format => {
+                            $('#format-select').append(`<option value="${format.format_id}">${format.resolution}p (${format.ext})</option>`);
+                        });
+                        $('#video-info').slideDown();
+                    },
+                    error: function(jqXHR) {
+                        $('#loading-spinner').hide();
+                        $('#loading-text').hide();
+                        $('#error-message').text(jqXHR.responseJSON.error);
+                    }
+                });
+            });
+
+            $('#download-video').click(function() {
+                const url = $('#video-url').val();
+                const format_id = $('#format-select').val();
+                
+                // Show downloading animation
+                $('#downloading-spinner').show();
+                $('#downloading-text').show();
+
+                $.ajax({
+                    url: '/download',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({url: url, format_id: format_id}),
+                    success: function(data) {
+                        $('#downloading-spinner').hide();
+                        $('#downloading-text').hide();
+                        const blob = new Blob([data], { type: 'video/mp4' });
+                        const downloadUrl = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = downloadUrl;
+                        a.download = `${data.title}.mp4`;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(downloadUrl);
+                    },
+                    error: function(jqXHR) {
+                        $('#downloading-spinner').hide();
+                        $('#downloading-text').hide();
+                        $('#error-message').text(jqXHR.responseJSON.error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
