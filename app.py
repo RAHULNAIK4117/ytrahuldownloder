@@ -28,7 +28,7 @@ def get_video_info():
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url, download=False)
-            formats = [{'format_id': f['format_id'], 'ext': f['ext']}
+            formats = [{'format_id': f['format_id'], 'resolution': f.get('height'), 'ext': f['ext']}
                        for f in info_dict['formats'] if f['vcodec'] != 'none']
             return jsonify({'title': info_dict['title'], 'formats': formats})
     except Exception as e:
@@ -48,9 +48,11 @@ def download_video():
         # yt-dlp options for downloading the best video and audio
         ydl_opts = {
             'format': 'best',
-            'outtmpl': '{DOWNLOAD_DIR}/%(title)s.%(ext)s',
+            'outtmpl': f'{DOWNLOAD_DIR}/%(title)s.%(ext)s',
             'merge_output_format': 'mp4',  # Ensures output format is mp4
-            'postprocessors': [{"for this gmail me"
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',  # Converts and merges streams into mp4
+                'preferedformat': 'mp4'
             }],
             'quiet': True,
             'no_warnings': True
